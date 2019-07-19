@@ -5,7 +5,19 @@ import { API_HOST } from '../environment'
 
 const uppy = Uppy({
 	debug: false,
-	autoProceed: false
+	autoProceed: false,
+	restrictions: {
+		maxNumberOfFiles: 1,
+		allowedFileTypes: [
+			'image/*',
+			'video/*',
+			'application/pdf',
+			'application/msword',
+			'application/excel',
+			'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+		]
+	}
 }).use(AwsS3Multipart, {
 	companionUrl: `${API_HOST}/upload`,
 	serverHeaders: {
