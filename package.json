@@ -11,14 +11,9 @@
 		"@uppy/aws-s3-multipart": "^1.1.0",
 		"@uppy/core": "^1.1.0",
 		"@uppy/react": "^1.1.0",
-		"apollo-boost": "^0.4.3",
-		"graphql": "^14.4.2",
 		"react": "^16.8.6",
-		"react-apollo": "^2.5.8",
 		"react-dom": "^16.8.6",
 		"react-scripts": "3.0.1",
-		"react-scroll": "^1.7.12",
-		"redux": "^4.0.1",
 		"serve": "^11.1.0"
 	},
 	"scripts": {

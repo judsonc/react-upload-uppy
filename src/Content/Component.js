@@ -5,26 +5,23 @@ import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import CloudUpload from '@material-ui/icons/CloudUpload'
-import Uppy from '@uppy/core'
-import AwsS3 from '@uppy/aws-s3-multipart'
 import Dashboard from '@uppy/react/lib/Dashboard'
 import '@uppy/dashboard/dist/style.css'
 
-import { API_HOST } from '../environment'
+import uppy from '../api'
 import useStyles from './style'
-
-const uppy = Uppy({
-	debug: false,
-	autoProceed: false
-}).use(AwsS3, { companionUrl: API_HOST })
 
 const Content = () => {
 	const classes = useStyles()
 
 	const [urls, setUrls] = useState([])
 
-	uppy.on('complete', result =>
-		setUrls(result.successful.map(i => i.uploadURL))
+	uppy.on('file-added', file => Object.assign(file, { path: 'aulas' }))
+
+	uppy.on('complete', ({ successful }) =>
+		setUrls(
+			successful.map(({ uploadURL, id, name }) => ({ uploadURL, id, name }))
+		)
 	)
 
 	const onClickUpload = event => {
@@ -43,36 +40,34 @@ const Content = () => {
 				<Typography variant="h1" component="h1" align="center" gutterBottom>
 					Upload
 				</Typography>
-
 				<Dashboard
 					width="100%"
+					height={300}
 					uppy={uppy}
 					note="Imagens quaisquer"
+					showProgressDetails={true}
 					locale={{
 						strings: {
-							// Text to show on the droppable area.
-							// `%{browse}` is replaced with a link that opens the system file selection dialog.
-							dropHereOr: 'Arraste para aqui ou navegue',
-							// Used as the label for the link that opens the system file selection dialog.
-							navegue: 'browse'
+							dropPaste: 'Arraste para aqui ou %{browse}',
+							browse: 'navegue'
 						}
 					}}
 				/>
-				{urls.map(url => (
+				{urls.map(({ uploadURL, id, name }) => (
 					<Typography
-						key={url}
+						key={id}
 						variant="h6"
 						component="h6"
 						align="center"
 						gutterBottom
 					>
 						<Link
-							href={url}
+							href={uploadURL}
 							className={classes.link}
 							target="_blank"
 							rel="noopener"
 						>
-							{url}
+							{name}
 						</Link>
 					</Typography>
 				))}
@@ -84,7 +79,7 @@ const Content = () => {
 					color="inherit"
 					onClick={onClickUpload}
 				>
-					<CloudUpload className={classes.CloudUploadIcon} />
+					<CloudUpload className={classes.cloudUploadIcon} />
 				</IconButton>
 			</Grid>
 		</Container>

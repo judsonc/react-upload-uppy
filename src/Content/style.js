@@ -10,7 +10,7 @@ export default makeStyles(theme => ({
 	contentBody: {
 		height: 'calc(100% - 130px)'
 	},
-	CloudUploadIcon: {
+	cloudUploadIcon: {
 		fontSize: 70
 	},
 	link: {

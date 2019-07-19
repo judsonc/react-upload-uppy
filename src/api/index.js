@@ -1,9 +1,20 @@
-import ApolloClient from 'apollo-boost'
+import Uppy from '@uppy/core'
+import AwsS3Multipart from '@uppy/aws-s3-multipart'
 
 import { API_HOST } from '../environment'
 
-const client = new ApolloClient({
-	uri: `${API_HOST}/graphql`
+const uppy = Uppy({
+	debug: false,
+	autoProceed: false
+}).use(AwsS3Multipart, {
+	companionUrl: `${API_HOST}/upload`,
+	serverHeaders: {
+		// Authorization: `Bearer ${getToken()}`
+	},
+	createMultipartUpload(file) {
+		const { name: filename, type, path } = file
+		return this.client.post('s3/multipart', { filename, type, path })
+	}
 })
 
-export default client
+export default uppy
