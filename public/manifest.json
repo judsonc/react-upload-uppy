@@ -1,6 +1,6 @@
 {
-	"short_name": "frontend-upload",
-	"name": "frontend-upload",
+	"short_name": "react-upload-uppy",
+	"name": "react-upload-uppy",
 	"icons": [
 		{
 			"src": "favicon.ico",

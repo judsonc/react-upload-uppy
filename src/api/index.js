@@ -1,7 +1,7 @@
 import Uppy from '@uppy/core'
 import AwsS3Multipart from '@uppy/aws-s3-multipart'
 
-import { API_HOST } from '../environment'
+import { API_HOST, TOKEN } from '../environment'
 
 const uppy = Uppy({
 	debug: false,
@@ -21,7 +21,7 @@ const uppy = Uppy({
 }).use(AwsS3Multipart, {
 	companionUrl: `${API_HOST}/upload`,
 	serverHeaders: {
-		// Authorization: `Bearer ${getToken()}`
+		Authorization: `Bearer ${TOKEN}`
 	},
 	createMultipartUpload(file) {
 		const { name: filename, type, path } = file
