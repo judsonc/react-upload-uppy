@@ -20,7 +20,11 @@ const Content = () => {
 
 	uppy.on('complete', ({ successful }) =>
 		setUrls(
-			successful.map(({ uploadURL, id, name }) => ({ uploadURL, id, name }))
+			successful.map(({ id, name, uploadURL }) => ({
+				id,
+				name,
+				url: uploadURL.replace(/%2F/g, '/')
+			}))
 		)
 	)
 
@@ -53,7 +57,7 @@ const Content = () => {
 						}
 					}}
 				/>
-				{urls.map(({ uploadURL, id, name }) => (
+				{urls.map(({ url, id, name }) => (
 					<Typography
 						key={id}
 						variant="h6"
@@ -62,7 +66,7 @@ const Content = () => {
 						gutterBottom
 					>
 						<Link
-							href={uploadURL}
+							href={url}
 							className={classes.link}
 							target="_blank"
 							rel="noopener"
