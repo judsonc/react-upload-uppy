@@ -21,7 +21,7 @@ const uppy = Uppy({
 }).use(AwsS3Multipart, {
 	companionUrl: `${API_HOST}/upload`,
 	serverHeaders: {
-		Authorization: `Bearer ${TOKEN}`
+		'uppy-auth-token': `Bearer ${TOKEN}`
 	},
 	createMultipartUpload(file) {
 		const { name: filename, type, path } = file
