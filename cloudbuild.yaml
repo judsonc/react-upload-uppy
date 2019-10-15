@@ -1,5 +1,8 @@
 steps:
-  # build the container image
+  # install dependencies
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+  # build
 - name: 'gcr.io/cloud-builders/npm'
   args: ['run', 'build']
   # deploy container image to Cloud Run
