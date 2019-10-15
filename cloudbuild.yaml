@@ -1,0 +1,7 @@
+steps:
+  # build the container image
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'build']
+  # deploy container image to Cloud Run
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['--project', 'github-actions-256012', 'app', 'deploy', '--quiet']
