@@ -7,4 +7,4 @@ steps:
   args: ['run', 'build']
   # deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['--project', 'run-upload-256013', 'app', 'deploy', '--quiet']
+  args: ['--project', 'deploy-front-256014', 'app', 'deploy', '--quiet']
